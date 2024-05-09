@@ -1,0 +1,91 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: s3-presto-deploy-infra-and-cluster
+  namespace: s3-proxy
+  annotations:
+    kubernetes.io/tls-acme: "true"
+  generation: 1
+  labels:
+    app.kubernetes.io/component: s3-presto-deploy-infra-and-cluster
+    app.kubernetes.io/name: s3-presto-deploy-infra-and-cluster
+    name: s3-presto-deploy-infra-and-cluster
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: clusters.ibm.prestodb.dev
+      http:
+        paths:
+          - backend:
+              service:
+                name: s3-presto-deploy-infra-and-cluster
+                port:
+                  number: 8001
+            pathType: ImplementationSpecific
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: s3-presto-deploy-infra-and-cluster
+  namespace: s3-proxy
+  annotations:
+  labels:
+    app: s3-presto-deploy-infra-and-cluster
+spec:
+  type: ClusterIP
+  selector:
+    app: s3-presto-deploy-infra-and-cluster
+  ports:
+    - port: 8001
+      name: http
+      targetPort: 80
+      protocol: TCP
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: s3-presto-deploy-infra-and-cluster
+  namespace: s3-proxy
+  labels:
+    app: s3-presto-deploy-infra-and-cluster
+spec:
+  selector:
+    matchLabels:
+      app: s3-presto-deploy-infra-and-cluster
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: s3-presto-deploy-infra-and-cluster
+    spec:
+      nodeSelector:
+        eks.amazonaws.com/nodegroup: deploy-infra-eks-managed-node-group-general
+      containers:
+      - name: s3-presto-deploy-infra-and-cluster
+        image: 093347738777.dkr.ecr.us-east-1.amazonaws.com/engprod/s3-proxy:2.0.1-20240125He0c3c78
+        ports:
+        - containerPort: 80
+        env:
+        - name: AWS_S3_BUCKET
+          value: "presto-deploy-infra-and-cluster-a9d5d14"
+        - name: AWS_S3_KEY_PREFIX
+          value: "clusters"
+        - name: ACCESS_LOG
+          value: "true"
+        - name: DIRECTORY_LISTINGS
+          value: "true"
+        - name: DIRECTORY_LISTINGS_FORMAT
+          value: "html"
+        - name: BASIC_AUTH_USER
+          value: "ibm"
+        - name: BASIC_AUTH_PASS
+          value: "${CLUSTERS_IBM_PRESTODB_DEV_PASSWORD}"

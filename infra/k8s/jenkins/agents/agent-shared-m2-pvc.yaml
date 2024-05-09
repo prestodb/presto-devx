@@ -1,0 +1,31 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: agent-shared-m2-pvc
+  namespace: jenkins-agent
+spec:
+  storageClassName: gp2
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 50Gi
+
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: agent-shared-m2-pv
+  labels:
+    type: local
+spec:
+  storageClassName: gp2
+  claimRef:
+    name: agent-shared-m2-pvc
+    namespace: jenkins-agent
+  capacity:
+    storage: 50Gi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: "/root/.m2"

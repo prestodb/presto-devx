@@ -1,0 +1,9 @@
+
+```
+docker run -it --entrypoint='/bin/bash' public.ecr.aws/oss-presto/hms:3.1.3
+
+export DEPLOY_MYSQL_HOST=xyz
+export DB_PASS=abc
+cd /opt/hms/bin/
+./schematool -initSchema -dbType mysql -url jdbc:mysql://${DEPLOY_MYSQL_HOST}/hive-metastore -driver 'com.mysql.cj.jdbc.Driver' -userName 'presto' -passWord ${DB_PASS}
+```
