@@ -12,6 +12,268 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 5.3.0
+
+Add `controller.topologySpreadConstraints`
+
+## 5.2.2
+
+Update `kubernetes` to version `4246.v5a_12b_1fe120e`
+
+## 5.2.1
+
+Update `jenkins/jenkins` to version `2.452.2-jdk17`
+
+## 5.2.0
+
+Add `agent.inheritYamlMergeStrategy` to allow configuring this setting on the default agent pod template.
+
+## 5.1.31
+
+Update `kubernetes` to version `4245.vf5b_83f1fee6e`
+
+## 5.1.30
+
+Add `controller.JCasC.configMapAnnotations` to allow setting annotations on the JCasC ConfigMaps.
+
+## 5.1.29
+
+Update `docker.io/kiwigrid/k8s-sidecar` to version `1.27.4`
+
+## 5.1.28
+
+Update `docker.io/kiwigrid/k8s-sidecar` to version `1.27.3`
+
+## 5.1.27
+
+Update `kubernetes` to version `4244.v4fb_b_00994a_90`
+
+## 5.1.26
+
+Update `kubernetes` to version `4238.v41b_3ef14a_5d8`
+
+## 5.1.25
+
+Update `kubernetes` to version `4236.vc06f753c3234`
+
+## 5.1.24
+
+Update `kubernetes` to version `4234.vdf3e78112369`
+
+## 5.1.23
+
+Update `kubernetes` to version `4233.vb_67a_0e11a_039`
+
+## 5.1.22
+
+Update `configuration-as-code` to version `1810.v9b_c30a_249a_4c`
+
+## 5.1.21
+
+Update `kubernetes` to version `4231.vb_a_6b_8936497d`
+
+## 5.1.20
+
+Update `kubernetes` to version `4230.vceef11cb_ca_37`
+
+## 5.1.19
+
+Update `docker.io/kiwigrid/k8s-sidecar` to version `1.27.2`
+
+## 5.1.18
+
+Update `configuration-as-code` to version `1807.v0175eda_00a_20`
+
+## 5.1.17
+
+Update `jenkins/inbound-agent` to version `3248.v65ecb_254c298-1`
+
+## 5.1.16
+
+Update `configuration-as-code` to version `1805.v1455f39c04cf`
+
+## 5.1.15
+
+Update `jenkins/jenkins` to version `2.452.1-jdk17`
+
+## 5.1.14
+
+Update `kubernetes` to version `4219.v40ff98cfb_d6f`
+
+## 5.1.13
+
+Update `docker.io/kiwigrid/k8s-sidecar` to version `1.27.1`
+
+## 5.1.12
+
+Update `git` to version `5.2.2`
+
+## 5.1.11
+
+Update `kubernetes` to version `4214.vf10083a_42e70`
+
+## 5.1.10
+
+Update `kubernetes` to version `4211.v08850dd0dfa_3`
+
+## 5.1.9
+
+Update `docker.io/kiwigrid/k8s-sidecar` to version `1.26.2`
+
+## 5.1.8
+
+Update `kubernetes` to version `4209.vc646b_71e5269`
+
+## 5.1.7
+
+Update `kubernetes` to version `4208.v4017b_a_27a_d67`
+
+## 5.1.6
+
+Update `jenkins/jenkins` to version `2.440.3-jdk17`
+
+## 5.1.5
+
+Fix Prometheus controller name.
+
+## 5.1.4
+
+Update `docker.io/bats/bats` to version `1.11.0`
+
+## 5.1.3
+
+Update `jenkins/jenkins` to version `2.440.2-jdk17`
+
+## 5.1.2
+
+Update `kubernetes` to version `4203.v1dd44f5b_1cf9`
+
+## 5.1.1
+
+Update `kubernetes` to version `4199.va_1647c280eb_2`
+
+## 5.1.0
+
+Add `agent.restrictedPssSecurityContext` to automatically inject in the jnlp container a securityContext that is suitable for the use of the restricted Pod Security Standard
+
+## 5.0.20
+
+Update `docker.io/kiwigrid/k8s-sidecar` to version `1.26.1`
+
+## 5.0.19
+
+Introduced helm-docs to automatically generate `values.yaml` documentation.
+
+## 5.0.18
+
+Update `kubernetes` to version `4193.vded98e56cc25`
+
+## 5.0.17
+
+Update `docker.io/kiwigrid/k8s-sidecar` to version `1.26.0`
+
+## 5.0.16
+
+Enable support for deleting plugin configuration files at startup.
+
+## 5.0.15
+
+Fixed changelog entries for previous version bumps
+
+
+## 5.0.14
+
+Update `jenkins/jenkins` to version `2.440.1-jdk17`
+
+## 5.0.13
+
+Update `docker.io/kiwigrid/k8s-sidecar` to version `1.25.4`
+
+## 5.0.12
+
+Fix controller.sidecars.additionalSidecarContainers renaming and add tests
+
+## 5.0.11
+
+* Add controller.sidecars.configAutoReload.scheme to specify protocol scheme when connecting Jenkins configuration-as-code reload endpoint
+* Add controller.sidecars.configAutoReload.skipTlsVerify to force the k8s-sidecar container to skip TLS verification when connecting to an HTTPS Jenkins configuration-as-code reload endpoint
+
+## 5.0.10
+
+Update `jenkins/inbound-agent` to version `3206.vb_15dcf73f6a_9-3`
+
+## 5.0.9
+
+Update `kubernetes` to version `4186.v1d804571d5d4`
+
+## 5.0.8
+
+Update `configuration-as-code` to version `1775.v810dc950b_514`
+
+## 5.0.7
+
+Update `docker.io/kiwigrid/k8s-sidecar` to version `docker.io/kiwigrid/k8s-sidecar`
+
+## 5.0.6
+
+Removed `docker.io` prefix from inbound-agent image
+
+## 5.0.5
+
+Prefixed artifacthub.io/images with `docker.io`
+
+## 5.0.4
+
+Updated super-linter to v6. Updated README.md and CHANGELOG.md to fix linting issues.
+
+## 5.0.2
+
+Update `git` to version `5.2.1`
+
+## 5.0.1
+
+Update `docker.io/bats/bats` to version `v1.10.0`
+
+## 5.0.0
+
+  > [!CAUTION]
+  > Several fields have been renamed or removed. See [UPGRADING.md](./UPGRADING.md#to-500)
+
+The Helm Chart is now updated automatically via [Renovate](https://docs.renovatebot.com/)
+
+## 4.12.1
+
+Update Jenkins image and appVersion to jenkins lts release version 2.426.3
+
+## 4.12.0
+
+Add support for [generic ephemeral storage](https://github.com/jenkinsci/kubernetes-plugin/pull/1489) in `agent.volumes` and `agents.workspaceVolume`.
+
+| plugin     | old version         | new version        |
+|------------|---------------------|--------------------|
+| kubernetes | 4029.v5712230ccb_f8 | 4174.v4230d0ccd951 |
+
+## 4.11.2
+
+Fixed documentation for controller.initScripts.
+
+## 4.11.1
+
+Updated helm-unittest and made unittests compatible.
+
+## 4.11.0
+
+Add multi-cloud support.
+
+## 4.10.0
+
+Bumped Jenkins inbound agent from 3107.v665000b_51092-15 to 3192.v713e3b_039fb_e-5.
+
+## 4.9.2
+
+Update Jenkins image and appVersion to jenkins lts release version 2.426.2
+
+
 Notes about [Artifact Hub](https://artifacthub.io/packages/helm/jenkinsci/jenkins?modal=changelog) changelog processing:
 - Remove empty lines
 - Keep only ASCII characters (no emojis)
@@ -1412,13 +1674,13 @@ Make `agent.slaveConnectTimeout` configurable: by increasing this value Jenkins 
 
 ## 1.9.7 Update plugin versions
 
-plugin                | old version | new version
---------------------- | ----------- | ----------
-kubernetes            | 1.18.2      | 1.21.2
-workflow-job          | 2.33        | 2.36
-credentials-binding   | 1.19        | 1.20
-git                   | 3.11.0      | 4.0.0
-configuration-as-code | 1.27        | 1.32
+| plugin                | old version | new version |
+|-----------------------|-------------|-------------|
+| kubernetes            | 1.18.2      | 1.21.2      |
+| workflow-job          | 2.33        | 2.36        |
+| credentials-binding   | 1.19        | 1.20        |
+| git                   | 3.11.0      | 4.0.0       |
+| configuration-as-code | 1.27        | 1.32        |
 
 ## 1.9.6
 
@@ -1544,7 +1806,7 @@ JCasC default configuration includes:
   - maxRequestsPerHostStr: "32"
   - name: "kubernetes"
   - namespace
-  - serverUrl: "https://kubernetes.default"
+  - serverUrl: `"https://kubernetes.default"`
   - template
     - containers
       - alwaysPullImage: `agent.alwaysPullImage`

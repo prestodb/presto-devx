@@ -34,12 +34,12 @@ controller:
   componentName: "jenkins-controller"
   image:
     # -- Controller image registry
-    registry: "932483864676.dkr.ecr.us-east-1.amazonaws.com"
+    registry: "docker.io"
     # -- Controller image repository
-    repository: "devx/jenkins-controller"
+    repository: "jenkins/jenkins"
 
     # -- Controller image tag override; i.e., tag: "2.440.1-jdk17"
-    tag: "2.463-jdk17-20240626H6ed9870"
+    tag:
 
     # -- Controller image tag label
     tagLabel: jdk17
@@ -93,7 +93,7 @@ controller:
     # -- The name of an existing secret containing the admin credentials
     existingSecret: ""
   # -- Email address for the administrator of the Jenkins instance
-  jenkinsAdminEmail: wanglinsong@gmail.com
+  jenkinsAdminEmail:
 
   # This value should not be changed unless you use your custom image of jenkins or any derived from.
   # If you want to use Cloudbees Jenkins Distribution docker, you should set jenkinsHome: "/var/cloudbees-jenkins-distribution"
@@ -114,11 +114,11 @@ controller:
   # -- Resource allocation (Requests and Limits)
   resources:
     requests:
-      cpu: "4096m"
-      memory: "8Gi"
+      cpu: "50m"
+      memory: "256Mi"
     limits:
-      cpu: "4096m"
-      memory: "8Gi"
+      cpu: "2000m"
+      memory: "4096Mi"
 
   # Share process namespace to allow sidecar containers to interact with processes in other containers in the same pod
   shareProcessNamespace: false
@@ -153,7 +153,7 @@ controller:
 
   # Set min/max heap here if needed with "-Xms512m -Xmx512m"
   # -- Append to `JAVA_OPTS` env var
-  javaOpts: "-Xms7000m -Xmx7000m"
+  javaOpts:
   # -- Append to `JENKINS_OPTS` env var
   jenkinsOpts:
 
@@ -531,144 +531,8 @@ controller:
     # Ignored if authorizationStrategy is defined in controller.JCasC.configScripts
     # -- Jenkins Config as Code Authorization Strategy-section
     authorizationStrategy: |-
-      projectMatrix:
-        entries:
-        - group:
-            name: "authenticated"
-            permissions:
-            - "Job/Discover"
-            - "Overall/Read"
-        - user:
-            name: "anonymous"
-            permissions:
-            - "Job/Discover"
-            - "Overall/Read"
-        - user:
-            name: "admin"
-            permissions:
-            - "Agent/Build"
-            - "Agent/Configure"
-            - "Agent/Connect"
-            - "Agent/Create"
-            - "Agent/Delete"
-            - "Agent/Disconnect"
-            - "Agent/ExtendedRead"
-            - "Credentials/Create"
-            - "Credentials/Delete"
-            - "Credentials/ManageDomains"
-            - "Credentials/Update"
-            - "Credentials/View"
-            - "Job/Build"
-            - "Job/Cancel"
-            - "Job/Configure"
-            - "Job/Create"
-            - "Job/Delete"
-            - "Job/Discover"
-            - "Job/ExtendedRead"
-            - "Job/Move"
-            - "Job/Read"
-            - "Job/Workspace"
-            - "Lockable Resources/Reserve"
-            - "Lockable Resources/Unlock"
-            - "Lockable Resources/View"
-            - "Metrics/HealthCheck"
-            - "Metrics/ThreadDump"
-            - "Metrics/View"
-            - "Overall/Administer"
-            - "Overall/Read"
-            - "Overall/SystemRead"
-            - "Run/Delete"
-            - "Run/Replay"
-            - "Run/Update"
-            - "SCM/Tag"
-            - "View/Configure"
-            - "View/Create"
-            - "View/Delete"
-            - "View/Read"
-        - user:
-            name: "ci"
-            permissions:
-            - "Agent/Build"
-            - "Agent/Configure"
-            - "Agent/Connect"
-            - "Agent/Create"
-            - "Agent/Delete"
-            - "Agent/Disconnect"
-            - "Agent/ExtendedRead"
-            - "Credentials/Create"
-            - "Credentials/Delete"
-            - "Credentials/ManageDomains"
-            - "Credentials/Update"
-            - "Credentials/View"
-            - "Job/Build"
-            - "Job/Cancel"
-            - "Job/Configure"
-            - "Job/Create"
-            - "Job/Delete"
-            - "Job/Discover"
-            - "Job/ExtendedRead"
-            - "Job/Move"
-            - "Job/Read"
-            - "Job/Workspace"
-            - "Lockable Resources/Reserve"
-            - "Lockable Resources/Unlock"
-            - "Lockable Resources/View"
-            - "Metrics/HealthCheck"
-            - "Metrics/ThreadDump"
-            - "Metrics/View"
-            - "Overall/Administer"
-            - "Overall/Read"
-            - "Overall/SystemRead"
-            - "Run/Delete"
-            - "Run/Replay"
-            - "Run/Update"
-            - "SCM/Tag"
-            - "View/Configure"
-            - "View/Create"
-            - "View/Delete"
-            - "View/Read"
-        - user:
-            name: "linsong"
-            permissions:
-            - "Agent/Build"
-            - "Agent/Configure"
-            - "Agent/Connect"
-            - "Agent/Create"
-            - "Agent/Delete"
-            - "Agent/Disconnect"
-            - "Agent/ExtendedRead"
-            - "Credentials/Create"
-            - "Credentials/Delete"
-            - "Credentials/ManageDomains"
-            - "Credentials/Update"
-            - "Credentials/View"
-            - "Job/Build"
-            - "Job/Cancel"
-            - "Job/Configure"
-            - "Job/Create"
-            - "Job/Delete"
-            - "Job/Discover"
-            - "Job/ExtendedRead"
-            - "Job/Move"
-            - "Job/Read"
-            - "Job/Workspace"
-            - "Lockable Resources/Reserve"
-            - "Lockable Resources/Unlock"
-            - "Lockable Resources/View"
-            - "Metrics/HealthCheck"
-            - "Metrics/ThreadDump"
-            - "Metrics/View"
-            - "Overall/Administer"
-            - "Overall/Read"
-            - "Overall/SystemRead"
-            - "Run/Delete"
-            - "Run/Replay"
-            - "Run/Update"
-            - "SCM/Tag"
-            - "View/Configure"
-            - "View/Create"
-            - "View/Delete"
-            - "View/Read"
+      loggedInUsersCanDoAnything:
+        allowAnonymousRead: false
 
     # -- Annotations for the JCasC ConfigMap
     configMapAnnotations: {}
@@ -796,7 +660,7 @@ controller:
 
   ingress:
     # -- Enables ingress
-    enabled: true
+    enabled: false
 
     # Override for the default paths that map requests to the backend
     # -- Override for the default Ingress paths
@@ -813,17 +677,16 @@ controller:
     # For Kubernetes v1.14+, use 'networking.k8s.io/v1beta1'
     # For Kubernetes v1.19+, use 'networking.k8s.io/v1'
     # -- Ingress API version
-    apiVersion: "networking.k8s.io/v1"
+    apiVersion: "extensions/v1beta1"
     # -- Ingress labels
-    labels:
-      use: jenkins-controller
+    labels: {}
     # -- Ingress annotations
-    annotations:
+    annotations: {}
       # kubernetes.io/ingress.class: nginx
-      kubernetes.io/tls-acme: "true"
+      # kubernetes.io/tls-acme: "true"
     # For Kubernetes >= 1.18 you should specify the ingress-controller via the field ingressClassName
     # See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#specifying-the-class-of-an-ingress
-    ingressClassName: nginx
+    # ingressClassName: nginx
 
     # Set this path to jenkinsUriPrefix above or use annotations to rewrite path
     # -- Ingress path
@@ -831,7 +694,7 @@ controller:
 
     # configures the hostname e.g. jenkins.example.com
     # -- Ingress hostname
-    hostName: "ci.oss.prestodb.dev"
+    hostName:
     # -- Hostname to serve assets from
     resourceRootUrl:
     # -- Ingress TLS configuration
@@ -851,7 +714,7 @@ controller:
     paths: []
     # For Kubernetes v1.14+, use 'networking.k8s.io/v1beta1'
     # For Kubernetes v1.19+, use 'networking.k8s.io/v1'
-    apiVersion: "networking.k8s.io/v1"
+    apiVersion: "extensions/v1beta1"
     labels: {}
     annotations: {}
     # kubernetes.io/ingress.class: nginx
@@ -1021,7 +884,7 @@ controller:
 
 agent:
   # -- Enable Kubernetes plugin jnlp-agent podTemplate
-  enabled: false
+  enabled: true
   # -- The name of the pod template to use for providing default values
   defaultsProviderTemplate: ""
 
@@ -1331,7 +1194,7 @@ persistence:
   # Requires persistence.enabled: true
   # If defined, PVC must be created manually before volume will be bound
   # -- Provide the name of a PVC
-  existingClaim: "jenkins-controller-pvc"
+  existingClaim:
 
   # jenkins data Persistent Volume Storage Class
   # If defined, storageClassName: <storageClass>
@@ -1405,7 +1268,7 @@ serviceAccount:
 
   # The name of the ServiceAccount is autogenerated by default
   #  -- The name of the ServiceAccount to be used by access-controlled resources
-  name: jenkins-controller
+  name:
   # -- Configures annotations for the ServiceAccount
   annotations: {}
   # -- Configures extra labels for the ServiceAccount
