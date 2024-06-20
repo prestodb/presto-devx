@@ -1,2 +1,2 @@
-# presto-dx
-presto developer experience: what actually drives productivity
+# presto-devx
+presto developer experience: what drives productivity
