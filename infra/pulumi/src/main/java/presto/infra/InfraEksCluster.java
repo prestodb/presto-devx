@@ -22,7 +22,7 @@ public class InfraEksCluster {
     private final Cluster cluster;
 
     public InfraEksCluster(Vpc vpc) {
-        Role eksRole = new Role("infra-eks-admin-role", RoleArgs.builder()
+        Role eksRole = new Role("presto-infra-eks-admin-role", RoleArgs.builder()
                 .assumeRolePolicy(
                         """
                         {
@@ -41,13 +41,13 @@ public class InfraEksCluster {
                 )
                 .build());
 
-        RolePolicyAttachment eksPolicyAttachment = new RolePolicyAttachment("infra-eks-admin-role-pa",
+        RolePolicyAttachment eksPolicyAttachment = new RolePolicyAttachment("presto-infra-eks-admin-role-pa",
                 RolePolicyAttachmentArgs.builder()
                         .policyArn("arn:aws:iam::aws:policy/AmazonEKSClusterPolicy")
                         .role(eksRole.name())
                         .build());
 
-        Role instanceRole = new Role("infra-eks-node-group-instance-role", RoleArgs.builder()
+        Role instanceRole = new Role("presto-infra-eks-node-group-instance-role", RoleArgs.builder()
                 .assumeRolePolicy(
                         """
                         {
@@ -72,14 +72,14 @@ public class InfraEksCluster {
                 "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy",
                 "arn:aws:iam::aws:policy/AmazonS3FullAccess");
         for (int i = 0; i < policies.size(); i++) {
-            RolePolicyAttachment policyAttachment = new RolePolicyAttachment("infra-eks-node-group-instance-role-pa-" + (i + 1),
+            RolePolicyAttachment policyAttachment = new RolePolicyAttachment("presto-infra-eks-node-group-instance-role-pa-" + (i + 1),
                     RolePolicyAttachmentArgs.builder()
                             .policyArn(policies.get(i))
                             .role(instanceRole.name())
                             .build());
         }
 
-        cluster = new Cluster("deploy-infra", ClusterArgs.builder()
+        cluster = new Cluster("presto-infra-eks", ClusterArgs.builder()
                 .instanceRole(instanceRole)
                 .serviceRole(eksRole)
                 .skipDefaultNodeGroup(true)
@@ -89,7 +89,7 @@ public class InfraEksCluster {
                 .vpcId(vpc.vpcId())
                 .build());
 
-        String ng = "infra-eks-managed-node-group";
+        String ng = "presto-infra-eks-managed-node-group";
         ManagedNodeGroup nodeGroup = new ManagedNodeGroup(ng, ManagedNodeGroupArgs.builder()
                 .cluster(cluster)
                 .diskSize(100)

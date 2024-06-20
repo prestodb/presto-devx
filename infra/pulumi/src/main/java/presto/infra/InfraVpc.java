@@ -14,7 +14,7 @@ public class InfraVpc {
     private final Vpc vpc;
 
     public InfraVpc() {
-        String name = "infra-vpc";
+        String name = "presto-infra-vpc";
         Map<String, String> tags = new HashMap<>(App.TAGS);
         tags.put("Name", name);
         vpc = new Vpc(name, VpcArgs.builder()

@@ -13,7 +13,7 @@ public class InfraHostedZone {
     private final HostedZone hostedZone;
 
     public InfraHostedZone(String hostedZoneId) {
-        hostedZone = HostedZone.get("infra-hosted-zone", Output.of(hostedZoneId),
+        hostedZone = HostedZone.get("presto-infra-hosted-zone", Output.of(hostedZoneId),
                 CustomResourceOptions.builder().build());
     }
 

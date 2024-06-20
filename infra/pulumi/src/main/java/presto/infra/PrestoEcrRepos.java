@@ -21,7 +21,7 @@ public class PrestoEcrRepos {
 
     public PrestoEcrRepos() {
         for (String r : repos) {
-            String name = "devex/" + r;
+            String name = "devx/" + r;
             Repository repo = new Repository(name, RepositoryArgs.builder()
                     .imageScanningConfiguration(RepositoryImageScanningConfigurationArgs.builder()
                             .scanOnPush(true)

@@ -17,9 +17,9 @@ public class InfraRdsMysql {
     private final Instance instance;
 
     public InfraRdsMysql(Output<String> password, Vpc vpc, SecurityGroup sg) {
-        SubnetGroup subnetGroup = new SubnetGroup("infra-rds-subnet-group",
+        SubnetGroup subnetGroup = new SubnetGroup("presto-infra-rds-subnet-group",
                 SubnetGroupArgs.builder().subnetIds(vpc.publicSubnetIds()).build());
-        String name = "presto-deploy-mysql";
+        String name = "presto-infra-mysql";
         instance = new Instance(name, InstanceArgs.builder()
                 .allocatedStorage(50)
                 .backupRetentionPeriod(7)

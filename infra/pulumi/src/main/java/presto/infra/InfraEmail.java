@@ -12,7 +12,7 @@ public class InfraEmail {
     private final EmailIdentity prestodbEmail;
 
     public InfraEmail(String email) {
-        this.prestodbEmail = new EmailIdentity("infra-email", EmailIdentityArgs.builder()
+        this.prestodbEmail = new EmailIdentity("presto-infra-email", EmailIdentityArgs.builder()
                 .email(email + "@prestodb.dev").build());
     }
 

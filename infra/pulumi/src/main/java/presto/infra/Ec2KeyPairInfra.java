@@ -12,8 +12,8 @@ public class Ec2KeyPairInfra {
     private final KeyPair keyPair;
 
     public Ec2KeyPairInfra() {
-        this.keyPair = new KeyPair("presto-deploy-infra-ec2-keypair", KeyPairArgs.builder()
-                .keyName("presto-deploy-infra-ec2-keypair")
+        this.keyPair = new KeyPair("presto-infra-infra-ec2-keypair", KeyPairArgs.builder()
+                .keyName("presto-infra-infra-ec2-keypair")
                 .publicKey("ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJnAI1iY/NWlpbsWM9zVt/E15tJeA2kxB1f3tbvOVoZC linsong.wang@ibm.com")
                 .tags(App.TAGS)
                 .build());
