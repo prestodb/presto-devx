@@ -1,0 +1,74 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: diffto
+  namespace: diffto
+  annotations:
+    kubernetes.io/tls-acme: "true"
+  generation: 1
+  labels:
+    app.kubernetes.io/component: diffto
+    app.kubernetes.io/name: diffto
+    name: diffto
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: diffto.ibm.prestodb.dev
+    http:
+      paths:
+      - backend:
+          service:
+            name: diffto
+            port:
+              number: 8090
+        pathType: ImplementationSpecific
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: diffto
+  namespace: diffto
+  annotations:
+  labels:
+    app: diffto
+spec:
+  type: ClusterIP
+  selector:
+    app: diffto
+  ports:
+  - name: http
+    port: 8090
+    protocol: TCP
+    targetPort: 8090
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: diffto
+  namespace: diffto
+  labels:
+    app: diffto
+spec:
+  selector:
+    matchLabels:
+      app: diffto
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: diffto
+    spec:
+      nodeSelector:
+        eks.amazonaws.com/nodegroup: deploy-infra-eks-managed-node-group-general
+      containers:
+      - name: diffto
+        image: 093347738777.dkr.ecr.us-east-1.amazonaws.com/engprod/diffto:${BUILD_VERSION}
+        ports:
+        - containerPort: 8090

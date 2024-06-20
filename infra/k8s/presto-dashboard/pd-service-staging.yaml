@@ -1,0 +1,102 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: presto-dashboard
+  namespace: presto-dashboard-staging
+  annotations:
+    kubernetes.io/tls-acme: "true"
+    nginx.ingress.kubernetes.io/auth-type: basic
+    nginx.ingress.kubernetes.io/auth-secret: ingress-basic-auth
+  generation: 1
+  labels:
+    app.kubernetes.io/component: presto-dashboard
+    app.kubernetes.io/name: presto-dashboard
+    name: presto-dashboard
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: presto-staging.ibm.prestodb.dev
+    http:
+      paths:
+      - backend:
+          service:
+            name: presto-dashboard
+            port:
+              number: 3000
+        pathType: ImplementationSpecific
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: presto-dashboard
+  namespace: presto-dashboard-staging
+  annotations:
+  labels:
+    app: presto-dashboard
+spec:
+  type: ClusterIP
+  selector:
+    app: presto-dashboard
+  ports:
+  - name: http
+    port: 3000
+    protocol: TCP
+    targetPort: 3000
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: presto-dashboard
+  namespace: presto-dashboard-staging
+  labels:
+    app: presto-dashboard
+spec:
+  selector:
+    matchLabels:
+      app: presto-dashboard
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: presto-dashboard
+    spec:
+      containers:
+      - name: presto-dashboard
+        image: public.ecr.aws/oss-presto/presto-dashboard:0.4.0-20240503122627H56b2e5b
+        ports:
+        - containerPort: 3000
+        env:
+        - name: MYSQL_HOST
+          value: presto-deploy-mysql3ff6596.cmtorbpxxkla.us-east-1.rds.amazonaws.com
+        - name: MYSQL_PORT
+          value: '3306'
+        - name: MYSQL_DATABASE
+          value: presto_benchmarks
+        - name: MYSQL_USERNAME
+          value: presto
+        - name: MYSQL_PASSWORD
+          value: ${PRESTO_MYSQL_PASSWORD}
+        - name: DATABASE_URL
+          value: "mysql://presto:${PRESTO_MYSQL_PASSWORD}@presto-deploy-mysql3ff6596.cmtorbpxxkla.us-east-1.rds.amazonaws.com/presto_benchmarks"
+        - name: DASHBOARD_NAME
+          value: "IBM Presto Dashboard"
+        - name: PULUMI_API_TOKEN
+          value: ${PULUMI_API_TOKEN}
+        - name: S3_PROXY_AUTH
+          value: ${S3_PROXY_AUTH}
+        - name: BENCHTO_SERVICE
+          value: 'https://benchto.ibm.prestodb.dev/#/'
+        - name: ADMINER_SERVICE
+          value: 'https://adminer.ibm.prestodb.dev/?server=presto-deploy-mysql3ff6596.cmtorbpxxkla.us-east-1.rds.amazonaws.com&username=presto&db=presto_benchmarks'
+        - name: SQLPAD_SERVICE
+          value: '#'
+        - name: JENKINS_PIPELINES
+          value: 'https://github.ibm.com/lakehouse/presto-performance#pipelines'

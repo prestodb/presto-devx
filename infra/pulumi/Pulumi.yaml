@@ -1,0 +1,7 @@
+name: presto-infra
+runtime: java
+description: infra of oss presto dx
+config:
+  pulumi:tags:
+    value:
+      pulumi:template: aws-java

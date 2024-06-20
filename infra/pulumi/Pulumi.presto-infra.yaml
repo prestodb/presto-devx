@@ -1,0 +1,8 @@
+config:
+  aws:region: us-east-1
+  aws-native:region: us-east-1
+  presto-infra:centos-stream-9-docker-ami: ami-02cbde25721bdbff1
+  presto-infra:hosted-zone-id: Z07061711IJOEXRXZEBV6
+  presto-infra:presto-infra-mysql-password:
+    secure: AAABAB5pE35tIHUBtJRYwvBXVMDiIWzOAjHCJ3FpvynnUXpHzfb0bYkJrrp4ccFMQ96VpZ4wHL0Xgr6BQIAUD3gFiGQiTzVgQwCT2g==
+  presto-infra:ssh-ed25519-pubkey: AAAAC3NzaC1lZDI1NTE5AAAAIDnUFSamQY9c+RowwSW7gXnL36DK4k1gmSaeT14il+0r

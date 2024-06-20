@@ -1,0 +1,56 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: benchto
+  namespace: benchto
+  annotations:
+  labels:
+    app: benchto
+spec:
+  type: ClusterIP
+  selector:
+    app: benchto
+  ports:
+  - name: http
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: benchto
+  namespace: benchto
+  labels:
+    app: benchto
+spec:
+  selector:
+    matchLabels:
+      app: benchto
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: benchto
+    spec:
+      nodeSelector:
+        eks.amazonaws.com/nodegroup: deploy-infra-eks-managed-node-group-general
+      containers:
+      - name: benchto-service
+        image: 093347738777.dkr.ecr.us-east-1.amazonaws.com/engprod/benchto-service:0.7-mysql-20220622H59075f1
+        ports:
+        - containerPort: 8080
+        env:
+        - name: SPRING_DATASOURCE_URL
+          value: "jdbc:mysql://presto-deploy-mysql3ff6596.cmtorbpxxkla.us-east-1.rds.amazonaws.com/presto_benchmarks?characterEncoding=utf8"
+        - name: SPRING_DATASOURCE_USERNAME
+          value: "presto"
+        - name: SPRING_DATASOURCE_PASSWORD
+          value: ${PRESTO_MYSQL_PASSWORD}
