@@ -1,4 +1,4 @@
-package presto.infra;
+package presto.devx.infra;
 
 import com.pulumi.awsnative.route53.HostedZone;
 import com.pulumi.core.Output;

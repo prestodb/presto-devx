@@ -1,4 +1,4 @@
-package presto.infra;
+package presto.devx.infra;
 
 import com.pulumi.Config;
 import com.pulumi.Context;
@@ -49,10 +49,10 @@ public class App {
         context.export("presto-devx-infrainstance-profile-name", clusterIntanceProfile.getInstanceProfile().name());
         context.export("presto-devx-infras3-access-role-arn", clusterIntanceProfile.getS3AccessRole().arn());
 
-        Output<String> password = config.requireSecret("presto-devx-inframysql-password");
+        Output<String> password = config.requireSecret("rds-mysql-password");
         InfraRdsMysql mysql = new InfraRdsMysql(password, vpc.getVpc(), sg.getInstance());
-        context.export("presto-devx-inframysql-address", mysql.getInstance().address());
-        context.export("presto-devx-inframysql-password", mysql.getInstance().password());
+        context.export("presto-devx-infra-rds-mysql-address", mysql.getInstance().address());
+        context.export("presto-devx-infra-rds-mysql-password", mysql.getInstance().password());
 
         InfraEksCluster eks = new InfraEksCluster(vpc.getVpc());
         context.export("presto-devx-infraeks-kubeconfig", eks.getCluster().kubeconfig());

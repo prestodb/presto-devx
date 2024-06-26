@@ -1,4 +1,4 @@
-package presto.infra;
+package presto.devx.infra;
 
 import com.pulumi.eks.Cluster;
 import com.pulumi.eks.ClusterArgs;

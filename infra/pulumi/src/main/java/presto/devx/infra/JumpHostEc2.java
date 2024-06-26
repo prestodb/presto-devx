@@ -1,4 +1,4 @@
-package presto.infra;
+package presto.devx.infra;
 
 import com.pulumi.aws.ec2.Instance;
 import com.pulumi.aws.ec2.InstanceArgs;
