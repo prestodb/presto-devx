@@ -1,8 +1,7 @@
 #!/bin/sh -ex
 
-export JENKINS_VERSION="2.438-jdk17"
+export JENKINS_VERSION="2.463-jdk17"
 
-AWS_PROFILE=ibm-aws
 AWS_REGION="us-east-1"
 
 ACCOUNT_ID=$(aws sts get-caller-identity --profile ${AWS_PROFILE} --output text | awk '{print $1}')
