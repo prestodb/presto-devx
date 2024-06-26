@@ -12,7 +12,7 @@ public class InfraEc2KeyPair {
     private final KeyPair keyPair;
 
     public InfraEc2KeyPair(String sshEd25519Pubkey) {
-        String name = "presto-infra-ec2-keypair";
+        String name = "presto-devx-infraec2-keypair";
         this.keyPair = new KeyPair(name, KeyPairArgs.builder()
                 .keyName(name)
                 .publicKey("ssh-ed25519 " + sshEd25519Pubkey)

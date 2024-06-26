@@ -21,8 +21,8 @@ public class JumpHostEc2 {
         Ec2KeyPairInfra ec2KeyPair = new Ec2KeyPairInfra();
 
         Map<String, String> tags = new HashMap<>(App.TAGS);
-        tags.put("Name", "presto-infra-jump-host");
-        this.instance = new Instance("presto-infra-jump-host", InstanceArgs.builder()
+        tags.put("Name", "presto-devx-infrajump-host");
+        this.instance = new Instance("presto-devx-infrajump-host", InstanceArgs.builder()
                 .ami(amiId)
                 .instanceType(InstanceType.T3_2XLarge)
                 .keyName(ec2KeyPair.getKeyPair().keyName())

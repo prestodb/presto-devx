@@ -39,7 +39,7 @@ controller:
     repository: "devx/jenkins-controller"
 
     # -- Controller image tag override; i.e., tag: "2.440.1-jdk17"
-    tag: "2.463-jdk17-20240626H6ed9870"
+    tag: "2.463-jdk17-20240626H0dae9a7"
 
     # -- Controller image tag label
     tagLabel: jdk17

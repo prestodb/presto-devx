@@ -13,7 +13,7 @@ public class InfraWildSslCertificate {
 
     public InfraWildSslCertificate(String domainName) {
         
-        certificate = new Certificate("presto-infra-wild-ssl-cert", CertificateArgs.builder()
+        certificate = new Certificate("presto-devx-infrawild-ssl-cert", CertificateArgs.builder()
                 .domainName("*." + domainName)
                 .tags(App.TAGS)
                 .validationMethod("DNS")
