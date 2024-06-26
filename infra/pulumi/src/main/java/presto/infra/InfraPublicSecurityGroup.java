@@ -17,7 +17,7 @@ public class InfraPublicSecurityGroup {
     private final SecurityGroup instance;
 
     public InfraPublicSecurityGroup(Vpc vpc) {
-        String sgName = "presto-infra-security-group-public-access";
+        String sgName = "presto-devx-infrasecurity-group-public-access";
         Map<String, String> tags = new HashMap<>(App.TAGS);
         tags.put("Name", sgName);
         instance = new SecurityGroup(sgName, SecurityGroupArgs.builder()
