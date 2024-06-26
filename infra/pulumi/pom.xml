@@ -11,7 +11,7 @@
     <properties>
         <encoding>UTF-8</encoding>
         <maven.compiler.release>21</maven.compiler.release>
-        <mainClass>presto.infra.App</mainClass>
+        <mainClass>presto.devx.infra.App</mainClass>
         <mainArgs/>
     </properties>
 
