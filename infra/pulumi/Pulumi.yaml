@@ -1,6 +1,6 @@
-name: presto-infra
+name: presto-devx-infra
 runtime: java
-description: infra of oss presto dx
+description: infra in aws for presto-devx
 config:
   pulumi:tags:
     value:

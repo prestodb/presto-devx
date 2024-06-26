@@ -1,4 +1,4 @@
-package presto.infra;
+package presto.devx.infra;
 
 import com.pulumi.aws.ses.EmailIdentity;
 import com.pulumi.aws.ses.EmailIdentityArgs;

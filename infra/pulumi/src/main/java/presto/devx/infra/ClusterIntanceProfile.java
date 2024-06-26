@@ -1,4 +1,4 @@
-package presto.infra;
+package presto.devx.infra;
 
 import com.pulumi.aws.iam.InstanceProfile;
 import com.pulumi.aws.iam.InstanceProfileArgs;

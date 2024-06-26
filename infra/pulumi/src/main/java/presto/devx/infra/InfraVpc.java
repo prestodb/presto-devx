@@ -1,4 +1,4 @@
-package presto.infra;
+package presto.devx.infra;
 
 import com.pulumi.awsx.ec2.Vpc;
 import com.pulumi.awsx.ec2.VpcArgs;

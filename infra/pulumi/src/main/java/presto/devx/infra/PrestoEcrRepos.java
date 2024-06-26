@@ -1,4 +1,4 @@
-package presto.infra;
+package presto.devx.infra;
 
 import com.pulumi.aws.ecr.Repository;
 import com.pulumi.aws.ecr.RepositoryArgs;
