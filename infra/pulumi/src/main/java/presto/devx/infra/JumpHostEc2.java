@@ -17,15 +17,13 @@ public class JumpHostEc2 {
 
     private final Instance instance;
 
-    public JumpHostEc2(Vpc vpc, SecurityGroup sg, String amiId) {
-        Ec2KeyPairInfra ec2KeyPair = new Ec2KeyPairInfra();
-
+    public JumpHostEc2(Vpc vpc, SecurityGroup sg, String amiId, Output<String> ec2KeyPairName) {
         Map<String, String> tags = new HashMap<>(App.TAGS);
-        tags.put("Name", "presto-devx-infrajump-host");
-        this.instance = new Instance("presto-devx-infrajump-host", InstanceArgs.builder()
+        tags.put("Name", "presto-devx-infra-jump-host");
+        this.instance = new Instance("presto-devx-infra-jump-host", InstanceArgs.builder()
                 .ami(amiId)
                 .instanceType(InstanceType.T3_2XLarge)
-                .keyName(ec2KeyPair.getKeyPair().keyName())
+                .keyName(ec2KeyPairName)
                 .subnetId(vpc.publicSubnetIds().applyValue(x -> x.get(0)))
                 .tags(tags)
                 .vpcSecurityGroupIds(Output.all(sg.id()))

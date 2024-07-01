@@ -16,7 +16,10 @@ public class PrestoEcrRepos {
     private final List<Repository> ecrRepos = new ArrayList<>();
 
     private final List<String> repos = List.of(
-            "jenkins-controller"
+            "jenkins-controller",
+            "presto",
+            "presto-native",
+            "presto-native-dependency"
     );
 
     public PrestoEcrRepos() {
@@ -26,7 +29,7 @@ public class PrestoEcrRepos {
                     .imageScanningConfiguration(RepositoryImageScanningConfigurationArgs.builder()
                             .scanOnPush(true)
                             .build())
-                    .imageTagMutability("IMMUTABLE")
+                    .imageTagMutability("MUTABLE")
                     .name(name)
                     .tags(App.TAGS)
                     .build());
