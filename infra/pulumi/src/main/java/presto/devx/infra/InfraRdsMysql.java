@@ -17,18 +17,18 @@ public class InfraRdsMysql {
     private final Instance instance;
 
     public InfraRdsMysql(Output<String> password, Vpc vpc, SecurityGroup sg) {
-        SubnetGroup subnetGroup = new SubnetGroup("presto-devx-infrards-subnet-group",
+        SubnetGroup subnetGroup = new SubnetGroup("presto-devx-infra-rds-subnet-group",
                 SubnetGroupArgs.builder().subnetIds(vpc.publicSubnetIds()).build());
-        String name = "presto-devx-inframysql";
+        String name = "presto-devx-infra-mysql";
         instance = new Instance(name, InstanceArgs.builder()
                 .allocatedStorage(50)
                 .backupRetentionPeriod(7)
                 .dbSubnetGroupName(subnetGroup.name())
                 .engine("mysql")
-                .engineVersion("8.0.36")
-                .instanceClass("db.t2.large")
+                .engineVersion("8.0")
+                .instanceClass("db.r6g.large")
                 .maxAllocatedStorage(500)
-                .dbName(name)
+                .dbName(name.replace('-', '_'))
                 .password(password)
                 .performanceInsightsEnabled(true)
                 .publiclyAccessible(true)

@@ -16,7 +16,7 @@ public class PrestoInfraS3 {
     private final Bucket bucket;
 
     public PrestoInfraS3() {
-        String name = "presto-devx-infras3";
+        String name = "presto-devx-infra-s3";
         this.bucket = new Bucket(name, BucketArgs.builder()
                 .lifecycleRules(
                         BucketLifecycleRuleArgs.builder()

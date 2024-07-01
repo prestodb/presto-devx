@@ -22,7 +22,7 @@ public class InfraEksCluster {
     private final Cluster cluster;
 
     public InfraEksCluster(Vpc vpc) {
-        Role eksRole = new Role("presto-devx-infraeks-admin-role", RoleArgs.builder()
+        Role eksRole = new Role("presto-devx-infra-eks-admin-role", RoleArgs.builder()
                 .assumeRolePolicy(
                         """
                         {
@@ -41,13 +41,13 @@ public class InfraEksCluster {
                 )
                 .build());
 
-        RolePolicyAttachment eksPolicyAttachment = new RolePolicyAttachment("presto-devx-infraeks-admin-role-pa",
+        RolePolicyAttachment eksPolicyAttachment = new RolePolicyAttachment("presto-devx-infra-eks-admin-role-pa",
                 RolePolicyAttachmentArgs.builder()
                         .policyArn("arn:aws:iam::aws:policy/AmazonEKSClusterPolicy")
                         .role(eksRole.name())
                         .build());
 
-        Role instanceRole = new Role("presto-devx-infraeks-node-group-instance-role", RoleArgs.builder()
+        Role instanceRole = new Role("presto-devx-infra-eks-node-group-instance-role", RoleArgs.builder()
                 .assumeRolePolicy(
                         """
                         {
@@ -72,14 +72,14 @@ public class InfraEksCluster {
                 "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy",
                 "arn:aws:iam::aws:policy/AmazonS3FullAccess");
         for (int i = 0; i < policies.size(); i++) {
-            RolePolicyAttachment policyAttachment = new RolePolicyAttachment("presto-devx-infraeks-node-group-instance-role-pa-" + (i + 1),
+            RolePolicyAttachment policyAttachment = new RolePolicyAttachment("presto-devx-infra-eks-node-group-instance-role-pa-" + (i + 1),
                     RolePolicyAttachmentArgs.builder()
                             .policyArn(policies.get(i))
                             .role(instanceRole.name())
                             .build());
         }
 
-        String name = "presto-devx-infraeks";
+        String name = "presto-devx-infra-eks";
         cluster = new Cluster(name, ClusterArgs.builder()
                 .instanceRole(instanceRole)
                 .name(name)
@@ -87,11 +87,11 @@ public class InfraEksCluster {
                 .skipDefaultNodeGroup(true)
                 .subnetIds(vpc.publicSubnetIds())
                 .tags(App.TAGS)
-                .version("1.28")
+                .version("1.30")
                 .vpcId(vpc.vpcId())
                 .build());
 
-        String ng = "presto-devx-infraeks-managed-node-group";
+        String ng = "presto-devx-infra-eks-managed-node-group";
         ManagedNodeGroup nodeGroup = new ManagedNodeGroup(ng, ManagedNodeGroupArgs.builder()
                 .cluster(cluster)
                 .diskSize(100)
