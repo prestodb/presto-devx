@@ -1,6 +1,9 @@
 #!/bin/sh -ex
 
-kubectx arn:aws:eks:us-east-1:093347738777:cluster/deploy-infra-eksCluster-c1c221f
+AWS_PROFILE=prestodb-aws
+
+ACCOUNT_ID=$(aws sts get-caller-identity --output text | awk '{print $1}')
+kubectx arn:aws:eks:us-east-1:${ACCOUNT_ID}:cluster/presto-devx-infra-eks
 kubens jenkins-controller
 
 helm repo add jenkins https://charts.jenkins.io || OK

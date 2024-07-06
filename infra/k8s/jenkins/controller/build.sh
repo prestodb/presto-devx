@@ -1,7 +1,8 @@
 #!/bin/sh -ex
 
-export JENKINS_VERSION="2.463-jdk17"
+export JENKINS_VERSION="2.466-jdk17"
 
+AWS_PROFILE=prestodb-aws
 AWS_REGION="us-east-1"
 
 ACCOUNT_ID=$(aws sts get-caller-identity --output text | awk '{print $1}')
