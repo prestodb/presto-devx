@@ -17,6 +17,8 @@ public class PrestoEcrRepos {
 
     private final List<String> repos = List.of(
             "jenkins-controller",
+            "jenkins-agent-dind",
+            "jenkins-agent-maven-jdk11",
             "presto",
             "presto-native",
             "presto-native-dependency"

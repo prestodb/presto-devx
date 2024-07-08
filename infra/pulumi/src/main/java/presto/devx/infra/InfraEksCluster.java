@@ -43,9 +43,15 @@ public class InfraEksCluster {
                 )
                 .build());
 
-        RolePolicyAttachment eksPolicyAttachment = new RolePolicyAttachment("presto-devx-infra-eks-admin-role-pa",
+        RolePolicyAttachment eksPolicyAttachment = new RolePolicyAttachment("presto-devx-infra-eks-cluster-role-pa",
                 RolePolicyAttachmentArgs.builder()
                         .policyArn("arn:aws:iam::aws:policy/AmazonEKSClusterPolicy")
+                        .role(eksRole.name())
+                        .build());
+
+        RolePolicyAttachment eksPolicyAttachment1 = new RolePolicyAttachment("presto-devx-infra-eks-service-role-pa",
+                RolePolicyAttachmentArgs.builder()
+                        .policyArn("arn:aws:iam::aws:policy/AmazonEKSServicePolicy")
                         .role(eksRole.name())
                         .build());
 
