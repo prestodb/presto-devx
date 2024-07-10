@@ -4,6 +4,8 @@ import com.pulumi.eks.Cluster;
 import com.pulumi.eks.ClusterArgs;
 import com.pulumi.eks.ManagedNodeGroup;
 import com.pulumi.eks.ManagedNodeGroupArgs;
+import com.pulumi.aws.eks.Addon;
+import com.pulumi.aws.eks.AddonArgs;
 import com.pulumi.aws.eks.inputs.NodeGroupScalingConfigArgs;
 import com.pulumi.aws.iam.Role;
 import com.pulumi.aws.iam.RoleArgs;
@@ -41,9 +43,15 @@ public class InfraEksCluster {
                 )
                 .build());
 
-        RolePolicyAttachment eksPolicyAttachment = new RolePolicyAttachment("presto-devx-infra-eks-admin-role-pa",
+        RolePolicyAttachment eksPolicyAttachment = new RolePolicyAttachment("presto-devx-infra-eks-cluster-role-pa",
                 RolePolicyAttachmentArgs.builder()
                         .policyArn("arn:aws:iam::aws:policy/AmazonEKSClusterPolicy")
+                        .role(eksRole.name())
+                        .build());
+
+        RolePolicyAttachment eksPolicyAttachment1 = new RolePolicyAttachment("presto-devx-infra-eks-service-role-pa",
+                RolePolicyAttachmentArgs.builder()
+                        .policyArn("arn:aws:iam::aws:policy/AmazonEKSServicePolicy")
                         .role(eksRole.name())
                         .build());
 
@@ -68,6 +76,7 @@ public class InfraEksCluster {
 
         List<String> policies = List.of(
                 "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly",
+                "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy",
                 "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy",
                 "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy",
                 "arn:aws:iam::aws:policy/AmazonS3FullAccess");
@@ -105,6 +114,12 @@ public class InfraEksCluster {
                         .build())
                 .subnetIds(Output.all(vpc.privateSubnetIds().applyValue(ids -> ids.get(0))))
                 .tags(App.TAGS)
+                .build());
+
+        Addon eksEbsCsiDriver = new Addon("presto-devx-infra-eks-ebs-csi-driver", AddonArgs.builder()
+                .addonName("aws-ebs-csi-driver")
+                .addonVersion("v1.32.0-eksbuild.1")
+                .clusterName(name)
                 .build());
     }
 

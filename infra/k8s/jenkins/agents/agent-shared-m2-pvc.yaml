@@ -24,7 +24,7 @@ spec:
     name: agent-shared-m2-pvc
     namespace: jenkins-agent
   capacity:
-    storage: 50Gi
+    storage: 100Gi
   accessModes:
     - ReadWriteMany
   hostPath:

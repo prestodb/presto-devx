@@ -2,7 +2,7 @@
 ## eks auto scaler
 https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/cloudprovider/aws/README.md
 
-export AWS_PROFILE=ibm-aws
+export AWS_PROFILE=prestodb-aws
 
 
 
@@ -10,16 +10,16 @@ export AWS_PROFILE=ibm-aws
 cluster-autoscaler-policy.json
 '''
 aws iam create-policy \
-    --policy-name deploy-infra-eks-auto-scaling-policy \
+    --policy-name arn:aws:eks:us-east-1:932483864676:cluster/presto-devx-eks-auto-scaling-policy \
     --policy-document file://cluster-autoscaler-policy.json
 '''
 output:
 '''
 {
     "Policy": {
-        "PolicyName": "deploy-infra-eks-auto-scaling-policy",
+        "PolicyName": "arn:aws:eks:us-east-1:932483864676:cluster/presto-devx-eks-auto-scaling-policy",
         "PolicyId": "ANPARLO7VOSM3NCGMQD44",
-        "Arn": "arn:aws:iam::093347738777:policy/deploy-infra-eks-auto-scaling-policy",
+        "Arn": "arn:aws:iam::932483864676:policy/arn:aws:eks:us-east-1:932483864676:cluster/presto-devx-eks-auto-scaling-policy",
         "Path": "/",
         "DefaultVersionId": "v1",
         "AttachmentCount": 0,
@@ -32,8 +32,8 @@ output:
 '''
 
 2.
-eksctl utils associate-iam-oidc-provider --region=us-east-1 --cluster=deploy-infra-eksCluster-c1c221f --approve
-2023-10-20 11:18:48 [ℹ]  IAM Open ID Connect provider is already associated with cluster "deploy-infra-eksCluster-c1c221f" in "us-east-1"
+eksctl utils associate-iam-oidc-provider --region=us-east-1 --cluster=arn:aws:eks:us-east-1:932483864676:cluster/presto-devx-eksCluster-c1c221f --approve
+2023-10-20 11:18:48 [ℹ]  IAM Open ID Connect provider is already associated with cluster "arn:aws:eks:us-east-1:932483864676:cluster/presto-devx-eksCluster-c1c221f" in "us-east-1"
 
 
 
@@ -56,7 +56,7 @@ deployment.apps/cluster-autoscaler created
 4.
 kubectl annotate serviceaccount cluster-autoscaler \
   -n kube-system \
-  eks.amazonaws.com/role-arn=arn:aws:iam::093347738777:role/presto-deploy-eks-auto-scaling-role \
+  eks.amazonaws.com/role-arn=arn:aws:iam::932483864676:role/presto-devx-eks-auto-scaling-role \
   --overwrite
 
 '''

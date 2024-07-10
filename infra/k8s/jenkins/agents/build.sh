@@ -1,6 +1,6 @@
 #!/bin/sh -ex
 
-AWS_PROFILE=ibm-aws
+AWS_PROFILE=prestodb-aws
 AWS_REGION="us-east-1"
 
 ACCOUNT_ID=$(aws sts get-caller-identity --profile ${AWS_PROFILE} --output text | awk '{print $1}')
