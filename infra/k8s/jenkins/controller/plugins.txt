@@ -93,6 +93,7 @@ maven-plugin:3.23
 metrics:4.2.18-442.v02e107157925
 node-iterator-api:49.v58a_8b_35f8363
 okhttp-api:4.11.0-157.v6852a_a_fa_ec11
+parameterized-scheduler:277.v61a_4b_a_49a_c5c
 pipeline-build-step:540.vb_e8849e1a_b_d8
 pipeline-github-lib:42.v0739460cda_c4
 pipeline-github:2.8-155.8eab375ac9f8
