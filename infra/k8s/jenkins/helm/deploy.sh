@@ -1,6 +1,6 @@
 #!/bin/sh -ex
 
-AWS_PROFILE=prestodb-aws
+export AWS_PROFILE="prestodb-aws"
 
 ACCOUNT_ID=$(aws sts get-caller-identity --output text | awk '{print $1}')
 kubectx arn:aws:eks:us-east-1:${ACCOUNT_ID}:cluster/presto-devx-infra-eks
