@@ -22,7 +22,7 @@ public class JumpHostEc2 {
         tags.put("Name", "presto-devx-infra-jump-host");
         this.instance = new Instance("presto-devx-infra-jump-host", InstanceArgs.builder()
                 .ami(amiId)
-                .instanceType(InstanceType.T3_2XLarge)
+                .instanceType(InstanceType.T3_Micro)
                 .keyName(ec2KeyPairName)
                 .subnetId(vpc.publicSubnetIds().applyValue(x -> x.get(0)))
                 .tags(tags)
