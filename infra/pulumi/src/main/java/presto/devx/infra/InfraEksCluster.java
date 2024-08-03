@@ -1,5 +1,6 @@
 package presto.devx.infra;
 
+import com.pulumi.aws.ec2.enums.InstanceType;
 import com.pulumi.eks.Cluster;
 import com.pulumi.eks.ClusterArgs;
 import com.pulumi.eks.ManagedNodeGroup;
@@ -104,13 +105,13 @@ public class InfraEksCluster {
         ManagedNodeGroup nodeGroup = new ManagedNodeGroup(ng, ManagedNodeGroupArgs.builder()
                 .cluster(cluster)
                 .diskSize(100)
-                .instanceTypes("m7i.4xlarge")
+                .instanceTypes(InstanceType.T3_2XLarge.getValue())
                 .nodeGroupName(ng)
                 .nodeRole(instanceRole)
                 .scalingConfig(NodeGroupScalingConfigArgs.builder()
                         .desiredSize(2)
-                        .maxSize(12)
-                        .minSize(2)
+                        .maxSize(3)
+                        .minSize(1)
                         .build())
                 .subnetIds(Output.all(vpc.privateSubnetIds().applyValue(ids -> ids.get(0))))
                 .tags(App.TAGS)

@@ -1,6 +1,6 @@
 #!/bin/sh -ex
 
-export JENKINS_VERSION="2.467-jdk17"
+export JENKINS_VERSION="2.470-jdk17"
 
 export AWS_PROFILE="prestodb-aws"
 export AWS_REGION="us-east-1"
